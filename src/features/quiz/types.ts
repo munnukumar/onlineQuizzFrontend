@@ -1,6 +1,6 @@
 // src/features/quiz/types.ts
 export interface Question {
-  id?: string;
+  _id?: string;
   quiz: string;
   text: string;
   type: "mcq" | "tf" | "short";
@@ -10,7 +10,7 @@ export interface Question {
 }
 
 export interface Quiz {
-  id: string;
+  _id: string;
   title: string;
   description?: string;
   durationMinutes: number;

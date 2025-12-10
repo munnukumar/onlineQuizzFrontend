@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoginMutation } from "../api/authApi";
+import { useLoginMutation } from "../api/api";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../app/reducers/authReducer";
@@ -13,16 +13,23 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await login(form).unwrap();
+    console.log("Login successful:", res);
     dispatch(
       setCredentials({
         accessToken: res.accessToken,
         refreshToken: res.refreshToken,
         role: res.user.role,
-        user: res.user,
+        user: {
+          id: res.user._id,
+          name: res.user.name,
+          email: res.user.email,
+          role: res.user.role,
+        },
       })
     );
     console.log("Login response:", res.user.role);
-    navigate(res.user.role === "admin" ? "/admin" : "/user");
+    console.log("after login : ", res.user);
+    navigate(res.user.role === "admin" ? "/admin" : "/user/dashboard");
   };
 
   return (

@@ -8,11 +8,15 @@ import NotFound from "./pages/NotFound";
 
 // Dashboards
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import UserDashboard from "./pages/users/userDashboard";
 
 
 // Admin Pages
 import AdminUsers from "./pages/admin/UserList";
 import AdminUserDetails from "./pages/admin/UserDetails";
+
+//user pages
+import AttemptQuiz from "./pages/users/QuizAttemptPage";
 
 
 import Leaderboard from "./components/Leaderboard";
@@ -67,14 +71,14 @@ function App() {
         {/* ====================== */}
         {/*     USER ROUTES       */}
         {/* ====================== */}
-        {/* <Route
-          path="/user"
+        <Route
+          path="/user/dashboard"
           element={
             <ProtectedRoute role="user">
               <UserDashboard />
             </ProtectedRoute>
           }
-        /> */}
+        />
 
         {/* <Route
           path="/user/profile"
@@ -94,14 +98,14 @@ function App() {
           }
         /> */}
 
-        {/* <Route
-          path="/user/quizzes/:quizId"
+        <Route
+          path="/quiz/:quizId/attempt/:attemptId"
           element={
             <ProtectedRoute role="user">
               <AttemptQuiz />
             </ProtectedRoute>
           }
-        /> */}
+        />
 
         <Route
           path="/leaderboard"

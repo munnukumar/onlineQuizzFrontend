@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { useRegisterMutation } from "../api/authApi";
+import { useRegisterMutation } from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const [form, setForm] = useState({name: "", email: "", password: "", role: "user" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "user",
+  });
   const [register, { isLoading }] = useRegisterMutation();
   const navigate = useNavigate();
 

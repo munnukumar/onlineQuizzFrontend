@@ -140,7 +140,7 @@ export default function AdminDashboard() {
                   ) : quizzes && quizzes.length ? (
                     quizzes.map((q, index) => {
                       const quizId =
-                        (q as Quiz & { _id?: string }).id ??
+                        (q as Quiz & { _id?: string })._id ??
                         (q as Quiz & { _id?: string })._id;
 
                       return (

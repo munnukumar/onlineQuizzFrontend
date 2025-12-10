@@ -1,7 +1,7 @@
 // src/app/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducers/authReducer";
-import { api } from "../api/authApi";
+import { api } from "../api/api";
 import { quizApi } from "../features/quiz/quizApi";
 import { usersApi } from "../features/adminUsers/usersApi";
 import { leaderboardApi } from "../features/leaderboard/leaderboardApi";
@@ -18,7 +18,7 @@ export const store = configureStore({
     getDefault().concat(
       api.middleware,
       quizApi.middleware,
-      usersApi.middleware ,
+      usersApi.middleware,
       leaderboardApi.middleware
     ),
 });

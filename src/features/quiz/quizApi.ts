@@ -17,10 +17,10 @@ export const quizApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Quizzes" as const, id })),
-              { type: "Quizzes", id: "LIST" },
+              ...result.map(({ _id }) => ({ type: "Quizzes" as const, _id })),
+              { type: "Quizzes", _id: "LIST" },
             ]
-          : [{ type: "Quizzes", id: "LIST" }],
+          : [{ type: "Quizzes", _id: "LIST" }],
     }),
 
     // ============================
