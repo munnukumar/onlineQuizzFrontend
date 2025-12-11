@@ -2,28 +2,29 @@ import { useSelector, TypedUseSelectorHook } from "react-redux";
 import { RootState } from "../app/store";
 import { Navigate } from "react-router-dom";
 
+// Typed selector for Redux state
 const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-const ProtectedRoute = ({
-  children,
-  role,
-}: {
+interface ProtectedRouteProps {
   children: JSX.Element;
   role?: string;
-}) => {
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role }) => {
   const { accessToken, user } = useTypedSelector((state) => state.auth);
 
-  // First check if accessToken is missing in BOTH Redux AND localStorage
+  // Redirect if no access token exists in both Redux and localStorage
   if (!accessToken && !localStorage.getItem("accessToken")) {
     return <Navigate to="/login" replace />;
   }
 
-  // Check role only after user is fully loaded
+  // Redirect if role is specified and user's role does not match
   if (role && user?.role && user.role !== role) {
     return <Navigate to="/" replace />;
   }
 
-  return children;  // Only one child passed here
+  // Render the protected content
+  return children;
 };
 
 export default ProtectedRoute;

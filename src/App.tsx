@@ -8,16 +8,16 @@ import NotFound from "./pages/NotFound";
 
 // Dashboards
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import UserDashboard from "./pages/users/userDashboard";
+import UserDashboard from "./pages/users/userDashboard/UserDashboard";
 
 
 // Admin Pages
 import AdminUsers from "./pages/admin/UserList";
 import AdminUserDetails from "./pages/admin/UserDetails";
+import AdminManageQuiz from "./pages/admin/ManageQuizPage"
 
 //user pages
-import AttemptQuiz from "./pages/users/QuizAttemptPage";
-
+import AttemptQuiz from "./pages/users/quizAttempt/QuizAttemptPage";
 
 import Leaderboard from "./components/Leaderboard";
 
@@ -55,6 +55,16 @@ function App() {
           element={
             <ProtectedRoute role="admin">
               <AdminUserDetails />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
+          path="/admin/quizzes"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminManageQuiz />
             </ProtectedRoute>
           }
         />

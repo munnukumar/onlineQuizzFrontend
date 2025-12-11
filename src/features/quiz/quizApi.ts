@@ -61,7 +61,7 @@ export const quizApi = createApi({
     //     GET QUESTIONS BY QUIZ
     // ============================
     getQuestionsByQuiz: builder.query<Question[], string>({
-      query: (quizId) => `/quizzes/${quizId}/questions`,
+      query: (quizId) => `/quizzes/${quizId}`, // updated to match backend route
       providesTags: (result, error, quizId) => [
         { type: "Questions", id: quizId },
       ],
@@ -85,11 +85,43 @@ export const quizApi = createApi({
       ],
     }),
 
-    // features/quiz/quizApi.ts
-    published: builder.mutation<
-      Quiz,
-      { id: string; published: boolean }
+    // ============================
+    //       UPDATE QUIZ
+    // ============================
+    updateQuiz: builder.mutation<Quiz, { id: string; title?: string; description?: string; duration?: number }>({
+      query: ({ id, ...patch }) => ({
+        url: `/quizzes/${id}`,
+        method: "PUT",
+        body: patch,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: "Quizzes", id },
+        { type: "Quizzes", id: "LIST" },
+      ],
+    }),
+
+    // ============================
+    //       UPDATE QUESTION
+    // ============================
+    updateQuestion: builder.mutation<
+      Question,
+      { id: string; quizId: string; question: Partial<Question> }
     >({
+      query: ({ id, quizId, question }) => ({
+        url: `/quizzes/${quizId}/questions/${id}`,
+        method: "PUT",
+        body: question,
+      }),
+      invalidatesTags: (result, error, { quizId }) => [
+        { type: "Questions", id: quizId },
+        { type: "Quizzes", id: quizId },
+      ],
+    }),
+
+    // ============================
+    //       PUBLISH QUIZ
+    // ============================
+    published: builder.mutation<Quiz, { id: string; published: boolean }>({
       query: ({ id, published }) => ({
         url: `/quizzes/${id}`,
         method: "PUT",
@@ -108,5 +140,7 @@ export const {
   useDeleteQuizMutation,
   useGetQuestionsByQuizQuery,
   useAddQuestionMutation,
+  useUpdateQuizMutation,
+  useUpdateQuestionMutation,
   usePublishedMutation,
 } = quizApi;

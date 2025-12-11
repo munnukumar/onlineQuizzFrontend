@@ -12,8 +12,9 @@ export default function UsersList() {
   const [toggleBlock] = useToggleBlockUserMutation();
 
   const [search, setSearch] = useState("");
+  console.log("users : ", users)
 
-  const filtered = users?.filter((user) =>
+  const filtered = users?.users?.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase())
   );
 

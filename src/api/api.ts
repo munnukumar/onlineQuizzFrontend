@@ -3,6 +3,15 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
 import type { Quiz } from "../features/quiz/types";
 
+export interface UserQuizResult {
+  userName: string;
+  quizTitle: string;
+  obtainedMarks: number;
+  totalMarks: number;
+  passingStatus: "PASS" | "FAIL";
+}
+
+
 export const api = createApi({
   reducerPath: "api",
   baseQuery,
@@ -65,6 +74,13 @@ export const api = createApi({
         body: { answers },
       }),
     }),
+
+
+        // Fetch user quiz results
+    userQuizResults: builder.query<UserQuizResult[], void>({
+      query: () => `/results`,
+      providesTags: ["Online Quizzes"],
+    }),
   }),
 });
 
@@ -76,4 +92,5 @@ export const {
   useStartAttemptMutation,
   useFetchQuizQuery,
   useSubmitAttemptMutation,
+  useUserQuizResultsQuery,
 } = api;

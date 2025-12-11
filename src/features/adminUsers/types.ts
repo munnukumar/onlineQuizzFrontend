@@ -7,3 +7,9 @@ export interface User {
   isBlocked: boolean;
   createdAt: string;
 }
+
+
+export interface UsersResponse {
+  total: number;
+  users: User[];
+}
